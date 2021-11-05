@@ -32,6 +32,7 @@ export const Navbar = ({ user }) => {
                 <span><Link to="/" className='navlink'>{user}</Link></span>
                 <span><Link to="cartproducts" className='navlink'><Icon icon={cart} /></Link></span>
                 <span className='no-of-products'>{totalQty}</span>
+                <span><Link to="wardrobe" className='navlink'>Wardrobe</Link></span>
                 <span><button className='logout-btn' onClick={handleLogout}>Logout</button></span>
             </div>}
         </div>
