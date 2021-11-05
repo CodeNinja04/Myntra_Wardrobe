@@ -10,11 +10,13 @@ import { CartContextProvider } from './Global/CartContext'
 import { Cart } from './Components/Cart'
 import { AddProducts } from './Components/AddProducts'
 import { Cashout } from './Components/Cashout'
+import { Wardrobe } from './Components/Wardrobe'
 
 export class App extends Component {
 
     state = {
         user: null,
+        uid: null
     }
 
     componentDidMount() {
@@ -24,13 +26,15 @@ export class App extends Component {
             if (user) {
                 db.collection('SignedUpUsersData').doc(user.uid).get().then(snapshot => {
                     this.setState({
-                        user: snapshot.data().Name
+                        user: snapshot.data().Name,
+                        uid: user.uid
                     })
                 })
             }
             else {
                 this.setState({
-                    user: null
+                    user: null,
+                    uid: null
                 })
             }
         })
@@ -55,6 +59,7 @@ export class App extends Component {
                             <Route path="/addproducts" component={AddProducts} />
                             {/* cashout */}
                             <Route path='/cashout' component={() => <Cashout user={this.state.user} />} />
+                            <Route path="/wardrobe" component={() => <Wardrobe user={this.state.user} uid={this.state.uid} />} />
                             <Route component={NotFound} />
                         </Switch>
                     </BrowserRouter>

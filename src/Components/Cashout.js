@@ -15,8 +15,10 @@ export const Cashout = (props) => {
     const [email, setEmail] = useState('');
     const [cell, setCell] = useState('');
     const [address, setAddress] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
+    const [product, setProduct] = useState('');
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -24,6 +26,7 @@ export const Cashout = (props) => {
                 db.collection('SignedUpUsersData').doc(user.uid).onSnapshot(snapshot => {
                     setName(snapshot.data().Name);
                     setEmail(snapshot.data().Email);
+                    setPassword(snapshot.data().Password);
                 })
             }
             else {
@@ -44,7 +47,8 @@ export const Cashout = (props) => {
                     BuyerCell: cell,
                     BuyerAddress: address,
                     BuyerPayment: totalPrice,
-                    BuyerQuantity: totalQty
+                    BuyerQuantity: totalQty,
+                    products: shoppingCart
                 }).then(() => {
                     setCell('');
                     setAddress('');
@@ -54,8 +58,30 @@ export const Cashout = (props) => {
                         history.push('/')
                     }, 5000)
                 }).catch(err => setError(err.message))
+                
+                db.collection('wardrobe').doc(user.uid).set({
+                    Name: name,
+                    Email: email,
+                    //Address: address,
+                    //BuyerPayment: totalPrice,
+                    //BuyerQuantity: totalQty,
+                    products: shoppingCart
+                }).then(() => {
+                    
+                    setAddress('');
+                    dispatch({ type: 'EMPTY' })
+                    setSuccessMsg('wardrobe updated');
+                    setTimeout(() => {
+                        history.push('/')
+                    }, 5000)
+                }).catch(err => setError(err.message))
+                
+                
+               
             }
         })
+
+        
     }
 
     return (
