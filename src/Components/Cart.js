@@ -57,7 +57,7 @@ export const Cart = ({ user }) => {
                             </div>
 
                             <div className='cart-price'>
-                                Rs {cart.TotalProductPrice}.00
+                                Rs {cart.TotalProductPrice}
                             </div>
 
                             <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
@@ -81,7 +81,7 @@ export const Cart = ({ user }) => {
                         <Link to='cashout' className='cashout-link'>
                             <button className='btn btn-success btn-md' style={{ marginTop: 5 + 'px' }}>
                                 Cash on delivery
-                        </button>
+                            </button>
                         </Link>
                     </div>}
                 </div>

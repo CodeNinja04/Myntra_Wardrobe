@@ -56,17 +56,17 @@ export class App extends Component {
                                 {/* home */}
                                 <Route exact path='/' component={() => <Home user={this.state.user} />} />
                                 {/* signup */}
-                                <Route path="/signup" component={Signup} />
+                                <Route exact path="/signup" component={Signup} />
                                 {/* login */}
-                                <Route path="/login" component={Login} />
+                                <Route exact path="/login" component={Login} />
                                 {/* cart products */}
-                                <Route path="/cartproducts" component={() => <Cart user={this.state.user} />} />
+                                <Route exact path="/cartproducts" component={() => <Cart user={this.state.user} />} />
                                 {/* add products */}
-                                <Route path="/addproducts" component={AddProducts} />
+                                <Route exact path="/addproducts" component={AddProducts} />
                                 {/* cashout */}
-                                <Route path='/cashout' component={() => <Cashout user={this.state.user} />} />
-                                <Route path="/mywardrobe" component={() => <MyWardrobe user={this.state.user} />} />
-                                <Route path='/transactions' component={() => <Transactions user={this.state.user} />} />
+                                <Route exact path='/cashout' component={() => <Cashout user={this.state.user} />} />
+                                <Route exact path="/mywardrobe" component={() => <MyWardrobe user={this.state.user} />} />
+                                <Route exact path='/transactions' component={() => <Transactions user={this.state.user} />} />
                                 <Route exact path='/wardrobe' component={() => <User user={this.state.user} />} />
                                 <Route exact path={`/wardrobe/:id`} component={() => <Wardrobe user={this.state.user} />} />
                                 <Route component={NotFound} />

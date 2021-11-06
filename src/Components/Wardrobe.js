@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { auth, db } from '../Config/Config'
 import { CartContext } from '../Global/CartContext'
+import { ProductsContext } from '../Global/ProductsContext'
 import { Navbar } from './Navbar';
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -8,7 +9,8 @@ export const Wardrobe = (props) => {
 
   const history = useHistory();
 
-  const { shoppingCart, totalPrice, totalQty, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
+  const { products } = useContext(ProductsContext);
 
   let { id } = useParams();
 
@@ -20,7 +22,7 @@ export const Wardrobe = (props) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [product, setProduct] = useState([{
+  const [prod, setProd] = useState([{
     ProductID: "",
     ProductImg: "",
     ProductName: "",
@@ -29,13 +31,19 @@ export const Wardrobe = (props) => {
 
 
   useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        history.push('/login');
+      }
+    })
+
     var docRef = db.collection("wardrobe").doc(id);
     docRef.get().then((doc) => {
       if (doc.exists) {
         //setProduct(doc.data().products);
         doc.data().products.map((p) => {
           // console.log(p);
-          setProduct(product => [
+          setProd(product => [
             {
               ProductID: p.ProductID,
               ProductImg: p.ProductImg,
@@ -47,7 +55,7 @@ export const Wardrobe = (props) => {
         // console.log("No such document!");
       }
 
-      console.log("Products:", product);
+      console.log("Products:", prod);
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
@@ -67,22 +75,22 @@ export const Wardrobe = (props) => {
                     
                 </li>
             ))} */}
-        {product.length !== 0 && <h1>Wardrobe Products</h1>}
+        {prod.length !== 0 && <h1>Wardrobe Products</h1>}
         <div className='products-container'>
-          {product.length === 0 && <div>slow internet...no products to display</div>}
-          {product.map(p => (
-            p.ProductID !== "" ?
-              (<div className='product-card' key={p.ProductID}>
+          {prod.length === 0 && <div>slow internet...no products to display</div>}
+          {prod.map(product => (
+            product.ProductID !== "" ?
+              (<div className='product-card' key={product.ProductID}>
                 <div className='product-img'>
-                  <img src={p.ProductImg} alt="not found" />
+                  <img src={product.ProductImg} alt="not found" />
                 </div>
                 <div className='product-name'>
-                  {p.ProductName}
+                  {product.ProductName}
                 </div>
                 <div className='product-price'>
-                  Rs {p.ProductPrice}.00
+                  Rs {product.ProductPrice}.00
                 </div>
-                <button className='addcart-btn' onClick={() => dispatch({ type: 'ADD_TO_CART', id: p.ProductID, p })}>ADD TO CART</button>
+                <button className='addcart-btn' onClick={() => dispatch({ type: 'ADD_TO_CART', id: product.ProductID, product })}>ADD TO CART</button>
               </div>)
               : null
           ))}

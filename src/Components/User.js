@@ -38,8 +38,7 @@ export const User = (props) => {
           <div key={user.id}>
             {user.name}
             {user.email}
-            <a href={`wardrobe/${user.id}`}>Link{user.id}</a>
-            {/* <Link to={`wardrobe/${user.id}`} /> */}
+            <Link to={`wardrobe/${user.id}`} className='navlink'>{user.id}</Link>
           </div>
         ))}
       </div>
