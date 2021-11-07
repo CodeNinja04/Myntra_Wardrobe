@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { auth } from '../Config/Config'
 import { Link } from 'react-router-dom'
 import LoginIcon from '@mui/icons-material/Login';
+import {Navbar} from './Navbar';
 
 export const Login = (props) => {
 
@@ -20,25 +21,41 @@ export const Login = (props) => {
     }
 
     return (
-        <div className='container' style={{ paddingBottom: '100px' }}>
+      <div>
+          <Navbar />
+        <div className="container" style={{ paddingBottom: "100px" }}>
+          <br />
+          <h2>Login</h2>
+          <br />
+          <form autoComplete="off" className="form-group" onSubmit={login}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
             <br />
-            <h2>Login</h2>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
             <br />
-            <form autoComplete="off" className='form-group' onSubmit={login}>
-                <label htmlFor="email">Email</label>
-                <input type="email" className='form-control' required
-                    onChange={(e) => setEmail(e.target.value)} value={email} />
-                <br />
-                <label htmlFor="password">Password</label>
-                <input type="password" className='form-control' required
-                    onChange={(e) => setPassword(e.target.value)} value={password} />
-                <br />
-                <button type="submit" className='btn btn-success btn-md mybtn'>LOGIN <LoginIcon /></button>
-            </form>
-            {error && <span className='error-msg'>{error}</span>}
-            <br />
-            <span>Don't have an account? Register <Link to="signup">Here</Link>
-            </span>
+            <button type="submit" className="btn btn-success btn-md mybtn">
+              LOGIN <LoginIcon />
+            </button>
+          </form>
+          {error && <span className="error-msg">{error}</span>}
+          <br />
+          <span>
+            Don't have an account? Register <Link to="signup">Here</Link>
+          </span>
         </div>
-    )
+      </div>
+    );
 }
