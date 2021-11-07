@@ -58,7 +58,7 @@ export const Cashout = (props) => {
                         history.push('/')
                     }, 5000)
                 }).catch(err => setError(err.message))
-                
+
                 db.collection('wardrobe').doc(user.uid).set({
                     Name: name,
                     Email: email,
@@ -67,7 +67,7 @@ export const Cashout = (props) => {
                     //BuyerQuantity: totalQty,
                     products: shoppingCart
                 }).then(() => {
-                    
+
                     setAddress('');
                     dispatch({ type: 'EMPTY' })
                     setSuccessMsg('wardrobe updated');
@@ -75,19 +75,19 @@ export const Cashout = (props) => {
                         history.push('/')
                     }, 5000)
                 }).catch(err => setError(err.message))
-                
-                
-               
+
+
+
             }
         })
 
-        
+
     }
 
     return (
         <>
             <Navbar user={props.user} />
-            <div className='container'>
+            <div className='container' style={{ paddingBottom: '48px' }}>
                 <br />
                 <h2>Cashout Details</h2>
                 <br />
@@ -117,7 +117,8 @@ export const Cashout = (props) => {
                     <input type="number" className='form-control' required
                         value={totalQty} disabled />
                     <br />
-                    <button type="submit" className='btn btn-success btn-md mybtn'>SUBMIT</button>
+                    <button type="submit" className='btn btn-success btn-md mybtn'
+                        style={{ padding: '4px 20px' }}>SUBMIT</button>
                 </form>
                 {error && <span className='error-msg'>{error}</span>}
             </div>

@@ -66,7 +66,7 @@ export const MyWardrobe = (props) => {
                     
                 </li>
             ))} */}
-                {product.length !== 0 && <h1>Wardrobe Products</h1>}
+                {product.length !== 0 && <h1 className="heading">Wardrobe Products</h1>}
                 <div className='products-container'>
                     {product.length === 0 && <div>slow internet...no products to display</div>}
                     {product.map(p => (

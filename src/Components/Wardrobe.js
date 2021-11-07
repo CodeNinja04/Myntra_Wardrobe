@@ -22,13 +22,13 @@ export const Wardrobe = (props) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [prod, setProd] = useState([{
-    ProductID: "",
-    ProductImg: "",
-    ProductName: "",
-    ProductPrice: 0
-  }]);
-
+  // const [prod, setProd] = useState([{
+  //   ProductID: "",
+  //   ProductImg: "",
+  //   ProductName: "",
+  //   ProductPrice: 0
+  // }]);
+  const [prod, setProd] = useState([]);
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
@@ -41,6 +41,7 @@ export const Wardrobe = (props) => {
     docRef.get().then((doc) => {
       if (doc.exists) {
         //setProduct(doc.data().products);
+        setName(doc.data().Name)
         doc.data().products.map((p) => {
           // console.log(p);
           setProd(product => [
@@ -52,7 +53,7 @@ export const Wardrobe = (props) => {
             }, ...product]);
         })
       } else {
-        // console.log("No such document!");
+        console.log("No such document!");
       }
 
       console.log("Products:", prod);
@@ -75,27 +76,37 @@ export const Wardrobe = (props) => {
                     
                 </li>
             ))} */}
-            
-        {prod.length !== 0 && <h1>Wardrobe Products</h1>}
-        <div className='products-container'>
-          {prod.length === 0 && <div>slow internet...no products to display</div>}
-          {prod.map(product => (
-            product.ProductID !== "" ?
-              (<div className='product-card' key={product.ProductID}>
-                <div className='product-img'>
-                  <img src={product.ProductImg} alt="not found" />
-                </div>
-                <div className='product-name'>
-                  {product.ProductName}
-                </div>
-                <div className='product-price'>
-                  Rs {product.ProductPrice}.00
-                </div>
-                <button className='addcart-btn' onClick={() => dispatch({ type: 'ADD_TO_CART', id: product.ProductID, product })}>ADD TO CART</button>
-              </div>)
-              : null
-          ))}
-        </div>
+
+        {name !== '' &&
+          <>
+            <h2 className="heading">{name}'s <h5 style={{ display: 'inline' }}>Wardrobe</h5></h2>
+          </>
+        }
+        {prod.length !== 0 ?
+          <div className='products-container'>
+            {prod.length === 0 && <div>slow internet...no products to display</div>}
+            {prod.map(product => (
+              product.ProductID !== "" ?
+                (<div className='product-card' key={product.ProductID}>
+                  <div className='product-img'>
+                    <img src={product.ProductImg} alt="not found" />
+                  </div>
+                  <div className='product-name'>
+                    {product.ProductName}
+                  </div>
+                  <div className='product-price'>
+                    Rs {product.ProductPrice}.00
+                  </div>
+                  <button className='addcart-btn' onClick={() => dispatch({ type: 'ADD_TO_CART', id: product.ProductID, product })}>ADD TO CART</button>
+                </div>)
+                : null
+            ))}
+          </div>
+          :
+          <div>
+            <h5 className="heading" style={{ marginLeft: '60px' }}>No products in wardrobe to display</h5>
+          </div>
+        }
       </div>
     </>
 

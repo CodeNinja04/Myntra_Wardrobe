@@ -23,6 +23,7 @@ export const Transactions = (props) => {
   return (
     <>
       <Navbar user={props.user} />
+      <h1 className="heading" style={{ margin: '0 60px 12px 60px' }}>My Transactions</h1>
       <div className="transactions">
         {transactions &&
           transactions.map(tx => (
@@ -35,7 +36,7 @@ export const Transactions = (props) => {
                   <div>{tx.data().BuyerEmail}</div>
                 </div>
                 <div className="transactions-cart-info">
-                  {tx.data().BuyerQuantity} Products for ${tx.data().BuyerPayment}
+                  {tx.data().BuyerQuantity} Products for <strong>${tx.data().BuyerPayment}</strong>
                 </div>
               </div>
               <div className="transactions-card-body">

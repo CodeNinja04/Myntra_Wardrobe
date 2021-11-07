@@ -27,12 +27,12 @@ export const Cart = ({ user }) => {
         <>
             <Navbar user={user} />
             <>
-                {shoppingCart.length !== 0 && <h1>Cart</h1>}
+                {shoppingCart.length !== 0 && <h1 className="heading">Cart</h1>}
                 <div className='cart-container'>
                     {
                         shoppingCart.length === 0 && <>
-                            <div>no items in your cart or slow internet causing trouble (Refresh the page) or you are not logged in</div>
-                            <div><Link to="/">Return to Home page</Link></div>
+                            <h5>no items in your cart or slow internet causing trouble (Refresh the page) or you are not logged in</h5>
+                            <h6><Link to="/">Return to Home page</Link></h6>
                         </>
                     }
                     {shoppingCart && shoppingCart.map(cart => (

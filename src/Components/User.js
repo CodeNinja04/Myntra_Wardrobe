@@ -44,36 +44,37 @@ export const User = (props) => {
   return (
     <>
       <Navbar user={props.user} />
-      <h2 style={{textAlign: 'center'}}>USERS</h2>
-
-     
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="right">ID</TableCell>
-              <TableCell align="right">Wardrobe</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
+      {/* <h2 style={{ textAlign: 'center' }} className="heading">USERS</h2> */}
+      <h1 className="heading" style={{ margin: '0 60px 12px 60px' }}>Users</h1>
+      <div className="users-table">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
               <TableRow>
-                <TableCell>{user.name}</TableCell>
-                <TableCell align="right">{user.email}</TableCell>
-                <TableCell align="right">{user.id}</TableCell>
-
-                <TableCell align="right">
-                  <Link to={`wardrobe/${user.id}`} className="navlink">
-                    Wardrobe
-                  </Link>
-                </TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">ID</TableCell>
+                <TableCell align="right">Wardrobe</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell align="right">{user.email}</TableCell>
+                  <TableCell align="right">{user.id}</TableCell>
+
+                  <TableCell align="right">
+                    <Link to={`wardrobe/${user.id}`} className="navlink">
+                      View Wardrobe
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </>
   );
 }

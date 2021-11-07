@@ -29,7 +29,7 @@ export const Signup = (props) => {
     }
 
     return (
-        <div className='container'>
+        <div className='container' style={{ paddingBottom: '100px' }}>
             <br />
             <h2>Sign up</h2>
             <br />
@@ -50,8 +50,7 @@ export const Signup = (props) => {
             </form>
             {error && <span className='error-msg'>{error}</span>}
             <br />
-            <span>Already have an account? Login
-                <Link to="login"> Here</Link>
+            <span>Already have an account? Login <Link to="login">Here</Link>
             </span>
         </div>
     )
