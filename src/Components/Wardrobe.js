@@ -75,6 +75,7 @@ export const Wardrobe = (props) => {
                     
                 </li>
             ))} */}
+            
         {prod.length !== 0 && <h1>Wardrobe Products</h1>}
         <div className='products-container'>
           {prod.length === 0 && <div>slow internet...no products to display</div>}
